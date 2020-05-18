@@ -63,6 +63,7 @@ class EventController extends BaseController
 
     public function update(Request $request, $id){
         $input = $request->all();
+        $input['eventOrganizer'] = $userID;
 
         $validator = Validator::make($input, [
             'eventOrganizer' => 'required',
