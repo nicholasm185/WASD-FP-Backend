@@ -32,7 +32,7 @@ public $successStatus = 200;
     { 
         $validator = Validator::make($request->all(), [ 
             'name' => 'required', 
-            'email' => 'required|email', 
+            'email' => 'required|email|unique:users', 
             'password' => 'required', 
             'c_password' => 'required|same:password', 
         ]);

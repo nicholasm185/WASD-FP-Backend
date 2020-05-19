@@ -63,7 +63,7 @@ class VerificationController extends Controller
         // }
 
         // return back()->with('resent', true);
-        return response(['message' => 'Email Sent']);
+        return response(['message' => 'Email Sent! Please check your inbox']);
     }
 
 
