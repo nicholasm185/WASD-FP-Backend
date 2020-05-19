@@ -37,7 +37,7 @@ class EventController extends BaseController
             return $this->sendError('Validation Error, unauthorised', $validator->errors());
         }
 
-        $filename = $input['eventOrganizer'].'_'.$input['eventName'].'_event_poster.jpg';
+        $filename = $input['eventOrganizer'].'_'.$input['startDate'].'_'.$input['endDate'].'_'.$input['eventName'].'_event_poster.jpg';
         $path = $request->file('picture')->move(public_path('/event_posters'), $filename);
         $photoURL = url('/event_posters/'.$filename);
 
@@ -95,7 +95,7 @@ class EventController extends BaseController
         $event->email =$input['email'];
         $event->phone =$input['phone'];
 
-        $filename = $input['eventOrganizer'].'_'.$input['eventName'].'_event_poster.jpg';
+        $filename = $input['eventOrganizer'].'_'.$input['startDate'].'_'.$input['endDate'].'_'.$input['eventName'].'_event_poster.jpg';
         $path = $request->file('picture')->move(public_path('/event_posters'), $filename);
 
 //        $event->picture = $input['picture'];

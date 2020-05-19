@@ -30,7 +30,7 @@ class RegisterController extends BaseController
             'c_password' => 'required',
         ]);
 
-        if ($validator->fails()){
+        if ($validator->fails() || $request['password'] != $request['c_password']){
             return $this->sendError('Validation Error!', $validator->errors());
         }
 
