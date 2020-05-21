@@ -28,9 +28,11 @@ class EventController extends BaseController
             'startDate' => 'required',
             'endDate' => 'required',
             'eventDescription' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'picture' => 'required'
+            'email1' => 'required',
+            'phone1' => 'required',
+            'picture' => 'required',
+            'venue' => 'required',
+            'city' => 'required'
         ]);
 
         if($validator->fails()){
@@ -50,9 +52,10 @@ class EventController extends BaseController
         return $this->sendResponse($event->toArray(), 'Event Created!');
     }
 
-    public function show(Request $request, $id){
-        $userID = $request->user()->id;
-        $event = Event::where('eventOrganizer', $userID)->where('id', $id)->get()->first();
+    public function show($id){
+        // $userID = $request->user()->id;
+        $event = Event::where('id', $id)->get();
+        // $event = Event::where('eventOrganizer', $userID)->where('id', $id)->get()->first();
 
         if(is_null($event)){
             return $this->sendError('Event does not exist');
@@ -71,9 +74,11 @@ class EventController extends BaseController
             'startDate' => 'required',
             'endDate' => 'required',
             'eventDescription' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'picture' => 'required'
+            'email1' => 'required',
+            'phone1' => 'required',
+            'picture' => 'required',
+            'venue' => 'required',
+            'city' => 'required'
         ]);
 
         if($validator->fails()){
@@ -92,8 +97,14 @@ class EventController extends BaseController
         $event->startDate =$input['startDate'];
         $event->endDate =$input['endDate'];
         $event->eventDescription =$input['eventDescription'];
-        $event->email =$input['email'];
-        $event->phone =$input['phone'];
+        $event->email1 =$input['email1'];
+        $event->email2 =$input['email2'];
+        $event->email3 =$input['email3'];
+        $event->phone1 =$input['phone1'];
+        $event->phone2 =$input['phone2'];
+        $event->phone3 =$input['phone3'];
+        $event->venue = $input['venue'];
+        $event->city = $input['city'];
 
         $filename = $input['eventOrganizer'].'_'.$input['startDate'].'_'.$input['endDate'].'_'.$input['eventName'].'_event_poster.jpg';
         $path = $request->file('picture')->move(public_path('/event_posters'), $filename);
