@@ -16,12 +16,16 @@ use Illuminate\Support\Facades\Route;
 //Route::post('login','API\UserController@login');
 //Route::post('register','API\UserController@register');
 
+// Auth Routes *********************************************************************************************
 Route::post('register', 'API\RegisterController@register');
 Route::post('login','API\RegisterController@login');
 
 Route::get('/email/resend', 'API\VerificationController@resend')->name('verification.resend');
 Route::get('/email/verify/{id}/{hash}', 'API\VerificationController@verify')->name('verification.verify');
+// *********************************************************************************************************
 
+
+// Event routes ********************************************************************************************
 Route::middleware('auth:api')->group(function() {
 //    Route::post('details', 'API\UserController@details');
     Route::post('events/create', 'API\EventController@create');
@@ -34,6 +38,16 @@ Route::middleware('auth:api')->group(function() {
 });
 
 Route::get('events/show/{id}', 'API\EventController@show');
+// **********************************************************************************************************
+
+
+
+// Attendee routes ******************************************************************************************
+Route::post('attendee/register', 'API\AttendeeController@attendEvent');
+Route::post('attendee/cancel', 'API\AttendeeController@cancel');
+Route::post('attendee/upload', 'API\AttendeeController@uploadProof');
+// **********************************************************************************************************
+
 
 Route::middleware(['auth:api','isAdmin'])->group(function (){
     Route::post('/admin/amIAdmin', 'API\AdminControls@imAdmin');

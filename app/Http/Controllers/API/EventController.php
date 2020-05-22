@@ -46,19 +46,15 @@ class EventController extends BaseController
         $path = $request->file('picture')->move(public_path('/event_posters'), $filename);
         $photoURL = url('/event_posters/'.$filename);
 
-//        return $this->sendResponse($photoURL, 'debug');
-
         $input['picture'] = urlencode($photoURL);
-//
+
         $event = Event::create($input);
-//
+
         return $this->sendResponse($event->toArray(), 'Event Created!');
     }
 
     public function show($id){
-        // $userID = $request->user()->id;
         $event = Event::where('event_id', $id)->get();
-        // $event = Event::where('eventOrganizer', $userID)->where('id', $id)->get()->first();
 
         if(is_null($event)){
             return $this->sendError('Event does not exist');
@@ -118,8 +114,6 @@ class EventController extends BaseController
         }
         $path = $request->file('picture')->move(public_path('/event_posters'), $filename);
 
-//        $event->picture = $input['picture'];
-
         $event->save();
         return $this->sendResponse($event->toArray(), 'Event has been updated');
     }
@@ -139,45 +133,4 @@ class EventController extends BaseController
 
         return $this->sendResponse($event->toArray(), 'Event has been deleted');
     }
-
-//    public function sendImage($id, Request $request){
-//
-//        if($this->is_image($request['image'])){
-//            $event = Event::find($id);
-//
-//            if(is_null($event)){
-//                return $this->sendError('Event not found');
-//            }
-//
-//            $event->picture = $request['image'];
-//            $event->save();
-//            return $this->sendResponse($event->toArray(), 'Event has been updated');
-//        }
-//
-//        return $this->sendError('not image');
-//
-//    }
-//
-////    Silver Moon binarytides.com
-//    function is_image($path)
-//    {
-//        $a = getimagesize($path);
-//        $image_type = $a[2];
-//
-//        if(in_array($image_type , array(IMAGETYPE_GIF , IMAGETYPE_JPEG ,IMAGETYPE_PNG , IMAGETYPE_BMP)))
-//        {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    function debug_image($id){
-//        $event = Event::find($id);
-//        if(is_null($event)){
-//            return $this->sendError('Event not found');
-//        }
-//        return response()->file($event['picture']);
-//    }
-
-
 }

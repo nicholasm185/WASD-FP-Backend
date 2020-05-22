@@ -10,4 +10,5 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-public/event_posters/*
+/public/event_posters/*
+/public/payment_proof/*
