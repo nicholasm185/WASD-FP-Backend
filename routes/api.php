@@ -46,6 +46,7 @@ Route::get('events/show/{id}', 'API\EventController@show');
 Route::post('attendee/register', 'API\AttendeeController@attendEvent');
 Route::post('attendee/cancel', 'API\AttendeeController@cancel');
 Route::post('attendee/upload', 'API\AttendeeController@uploadProof');
+Route::get('attendee/dproof/{event_id}', 'API\AttendeeController@downloadProof');
 // **********************************************************************************************************
 
 

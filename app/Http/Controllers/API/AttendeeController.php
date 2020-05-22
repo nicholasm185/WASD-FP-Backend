@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+use File;
+use ZipArchive;
+
 
 class AttendeeController extends BaseController
 {
@@ -98,5 +101,27 @@ class AttendeeController extends BaseController
         $attendee->save();
 
         return $this->sendResponse($attendee->toArray(), 'Proof uploaded!');
+    }
+
+    public function downloadProof($event_id){
+        $zip = new ZipArchive;
+   
+        $fileName = $event_id.'.zip';
+   
+        if ($zip->open(public_path('/proof_archive/'.$fileName), ZipArchive::CREATE) === TRUE)
+        {
+            $files = File::files(public_path('payment_proof/'.$event_id));
+   
+            foreach ($files as $key => $value) {
+                $relativeNameInZipFile = basename($value);
+                $zip->addFile($value, $relativeNameInZipFile);
+            }
+             
+            $zip->close();
+        }
+    
+        return response()->download(public_path('/proof_archive/'.$fileName));
+        // return $this->sendResponse('test', 'test');
+
     }
 }
