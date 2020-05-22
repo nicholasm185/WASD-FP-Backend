@@ -7,6 +7,7 @@ use App\Http\Controllers\API\BaseController as BaseController;
 //use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File; 
 
 class EventController extends BaseController
 {
@@ -66,6 +67,7 @@ class EventController extends BaseController
 
     public function update(Request $request, $id){
         $input = $request->all();
+        $userID = $request->user()->id;
         $input['eventOrganizer'] = $userID;
 
         $validator = Validator::make($input, [
@@ -92,6 +94,8 @@ class EventController extends BaseController
             return $this->sendError('Event does not exist');
         }
 
+        $oldfilename = $event['eventOrganizer'].'_'.$event['startDate'].'_'.$event['endDate'].'_'.$event['eventName'].'_event_poster.jpg';
+
         $event->eventOrganizer = $input['eventOrganizer'];
         $event->eventName =$input['eventName'];
         $event->startDate =$input['startDate'];
@@ -107,6 +111,9 @@ class EventController extends BaseController
         $event->city = $input['city'];
 
         $filename = $input['eventOrganizer'].'_'.$input['startDate'].'_'.$input['endDate'].'_'.$input['eventName'].'_event_poster.jpg';
+        if($filename != $oldfilename){
+            File::delete(public_path('/event_posters').'/'.$oldfilename);
+        }
         $path = $request->file('picture')->move(public_path('/event_posters'), $filename);
 
 //        $event->picture = $input['picture'];
