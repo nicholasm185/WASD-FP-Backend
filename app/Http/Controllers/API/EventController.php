@@ -22,6 +22,7 @@ class EventController extends BaseController
         $input = $request->all();
         $userID = $request->user()->id;
         $input['eventOrganizer'] = $userID;
+        $input['event_id'] = uniqid();
 
         $validator = Validator::make($input, [
             'eventOrganizer' => 'required',
@@ -33,7 +34,8 @@ class EventController extends BaseController
             'phone1' => 'required',
             'picture' => 'required',
             'venue' => 'required',
-            'city' => 'required'
+            'city' => 'required',
+            'event_id' => 'required'
         ]);
 
         if($validator->fails()){
@@ -55,7 +57,7 @@ class EventController extends BaseController
 
     public function show($id){
         // $userID = $request->user()->id;
-        $event = Event::where('id', $id)->get();
+        $event = Event::where('event_id', $id)->get();
         // $event = Event::where('eventOrganizer', $userID)->where('id', $id)->get()->first();
 
         if(is_null($event)){
@@ -124,7 +126,7 @@ class EventController extends BaseController
 
     public function destroy(Request $request, $id){
         $userID = $request->user()->id;
-        $event = Event::where('eventOrganizer', $userID)->where('id', $id)->get()->first();
+        $event = Event::where('eventOrganizer', $userID)->where('event_id', $id)->get()->first();
 
         if(is_null($event)){
             return $this->sendError('Event does not exist');

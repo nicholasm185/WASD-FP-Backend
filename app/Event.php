@@ -25,6 +25,7 @@ class Event extends Model
         'phone3',
         'picture', 
         'venue', 
-        'city'
+        'city',
+        'event_id'
     ];
 }
