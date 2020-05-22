@@ -91,7 +91,7 @@ class AttendeeController extends BaseController
 
         $filename = $event_id.'_'.$id.'_'.$email.'_payment.jpg';
         $path = $request->file('paymentProof')->move(public_path('/payment_proof/'.$event_id),$filename);
-        $photoURL = url('/payment_proof/'.$event_id.$filename);
+        $photoURL = urlencode(url('/payment_proof/'.$event_id.'/'.$filename));
 
         $attendee->paid = 1;
         $attendee->paymentProof = $photoURL;
