@@ -47,7 +47,10 @@ Route::post('attendee/register', 'API\AttendeeController@attendEvent');
 Route::post('attendee/cancel', 'API\AttendeeController@cancel');
 Route::post('attendee/upload', 'API\AttendeeController@uploadProof');
 Route::get('attendee/dproof/{event_id}', 'API\AttendeeController@downloadProof');
+Route::post('attendee/instruction', 'API\Email@sendPaymentProofInstructions');
 // **********************************************************************************************************
+
+// Email Routes *********************************************************************************************
 
 
 Route::middleware(['auth:api','isAdmin'])->group(function (){
