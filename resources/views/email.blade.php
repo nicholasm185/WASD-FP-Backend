@@ -311,7 +311,7 @@
                                                                     <center><p>Email: {{ $email }}</p></center>
                                                                     <hr>
                                                                     <center><p>If you would like to cancel your registration, you can also use those credentials on the cancel registration page.<br> 
-                                                                    Terimakasih telah menghubungi kami!</p></center>
+                                                                    Thank you for using our services!</p></center>
                                                                 </div>
                                                             </td>
                                                         </tr>

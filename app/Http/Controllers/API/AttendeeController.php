@@ -6,6 +6,7 @@ use App\Attendee;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Email;
 
 use File;
 use ZipArchive;
@@ -30,8 +31,9 @@ class AttendeeController extends BaseController
 
         try{
             $attendee = Attendee::create($input);
-        } catch(\Exception $e){
-            return $this->sendError('Error inputing data', $e);
+            Email::sendPaymentProofInstructions($attendee);
+        } catch(Exception $e){
+            return $this->sendError('Error inputing data', $e->errors());
         }
         
         return $this->sendResponse($attendee->toArray(), 'Attendee has been registered!');
