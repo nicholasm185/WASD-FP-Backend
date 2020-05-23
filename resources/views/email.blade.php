@@ -291,7 +291,7 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <p>Hi {{ $name }}</p>
+                                        <p>Hi {{ $name }},</p>
                                         <p>Thank you for using EzTicket!</p>
 
                                         <table border="0" cellpadding="0" cellspacing="0">
@@ -302,14 +302,14 @@
                                                         <tbody>
                                                         <tr>
                                                             <td> <div class="container">
-                                                                    <center><p>Please complete your registration by uploading your proof of payment using these credentials</p></center>
+                                                                    <center><p>Please complete your registration by clicking the link below</p></center>
                                                                     <hr>
+                                                                    <center><a href="http://localhost:4200/proofing/{{$event_id}}/{{$id}}/{{$email}}">Click Here</a></center>
+                                                                    <hr>
+                                                                    <p>If the link above does not work, you can use the following credentials to upload your proof of payment <a href="http://localhost:4200/proofing/">here</a></p>
                                                                     <center><p>Event ID: {{ $event_id }}</p></center>
-                                                                    <hr>
                                                                     <center><p>Attendee ID: {{ $id }}</p></center>
-                                                                    <hr>
                                                                     <center><p>Email: {{ $email }}</p></center>
-                                                                    <hr>
                                                                     <center><p>If you would like to cancel your registration, you can also use those credentials on the cancel registration page.<br> 
                                                                     Thank you for using our services!</p></center>
                                                                 </div>

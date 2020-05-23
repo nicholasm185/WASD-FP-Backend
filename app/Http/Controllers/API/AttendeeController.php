@@ -83,7 +83,12 @@ class AttendeeController extends BaseController
             'id' => 'required',
             'event_id' => 'required',
             'email' => 'required',
+            'paymentProof' => 'required'
         ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error, please input all correct data', $validator->errors());
+        }
 
         $event_id = $input['event_id'];
         $id = $input['id'];
