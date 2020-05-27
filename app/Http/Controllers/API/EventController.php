@@ -111,6 +111,7 @@ class EventController extends BaseController
         $event->phone3 =$input['phone3'];
         $event->venue = $input['venue'];
         $event->city = $input['city'];
+        $event->numTickets = $input['numTickets'];
 
         $filename = $input['eventOrganizer'].'_'.$input['startDate'].'_'.$input['endDate'].'_'.$input['eventName'].'_event_poster.jpg';
         if($filename != $oldfilename){
