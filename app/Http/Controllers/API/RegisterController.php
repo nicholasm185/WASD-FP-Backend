@@ -16,6 +16,9 @@ class RegisterController extends BaseController
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')-> accessToken;
             $success['name'] = $user['name'];
+            $success['id'] = $user['id'];
+            $success['email'] = $user['email'];
+            $success['created_at'] = $user['created_at'];
             return response()->json(['success' => $success], 200);
         }
         else{
@@ -40,6 +43,9 @@ class RegisterController extends BaseController
         $user = User::create($input);
         $success['token'] = $user->createToken('MyApp')->accessToken;
         $success['name'] = $user->name;
+        $success['id'] = $user['id'];
+        $success['email'] = $user['email'];
+        $success['created_at'] = $user['created_at'];
 
         return $this->sendResponse($success, 'User registered');
 

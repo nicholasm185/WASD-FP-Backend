@@ -39,8 +39,12 @@ class EventController extends BaseController
         ]);
 
         if($validator->fails()){
-            return $this->sendError('Validation Error, unauthorised', $validator->errors());
+            return $this->sendError('Validation Error, incomplete data', $validator->errors());
         }
+
+        $eventName = $input['eventName'];
+        $startDate = $input['startDate'];
+        $endDate = $input['endDate'];
 
         $filename = $input['eventOrganizer'].'_'.$input['startDate'].'_'.$input['endDate'].'_'.$input['eventName'].'_event_poster.jpg';
         $path = $request->file('picture')->move(public_path('/event_posters'), $filename);
@@ -76,7 +80,7 @@ class EventController extends BaseController
             'eventDescription' => 'required',
             'email1' => 'required',
             'phone1' => 'required',
-            'picture' => 'required',
+            'picture' => 'required|file|image',
             'venue' => 'required',
             'city' => 'required'
         ]);
