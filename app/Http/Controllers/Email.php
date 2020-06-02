@@ -15,7 +15,7 @@ class Email extends Controller
             Mail::send('email', ['name' => $request->name, 'event_id' => $request->event_id, 'id' => $request->id, 'email' => $request->email, ], function ($message) use ($request)
             {
                 $message->subject('Upload Payment Proof');
-                $message->from('donotreply@ezticket.com', 'EzTicket');
+                $message->from('donotreply@ticketmaya.com', 'TicketMAYA');
                 $message->to($request->email);
             });
             return true;
