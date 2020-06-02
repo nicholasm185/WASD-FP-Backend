@@ -46,7 +46,7 @@ class EventController extends BaseController
         $startDate = $input['startDate'];
         $endDate = $input['endDate'];
 
-        $filename = $input['eventOrganizer'].'_'.$input['startDate'].'_'.$input['endDate'].'_'.$input['eventName'].'_event_poster.jpg';
+        $filename = $input['eventOrganizer'].'_'.$input['event_id'].'_'.$input['eventName'].'_event_poster.jpg';
         $path = $request->file('picture')->move(public_path('/event_posters'), $filename);
         $photoURL = url('/event_posters/'.$filename);
 
@@ -96,7 +96,7 @@ class EventController extends BaseController
             return $this->sendError('Event does not exist');
         }
 
-        $oldfilename = $event['eventOrganizer'].'_'.$event['startDate'].'_'.$event['endDate'].'_'.$event['eventName'].'_event_poster.jpg';
+        $oldfilename = $event['eventOrganizer'].'_'.$event['event_id'].'_'.$event['eventName'].'_event_poster.jpg';
 
         $event->eventOrganizer = $input['eventOrganizer'];
         $event->eventName =$input['eventName'];
@@ -113,7 +113,7 @@ class EventController extends BaseController
         $event->city = $input['city'];
         $event->numTickets = $input['numTickets'];
 
-        $filename = $input['eventOrganizer'].'_'.$input['startDate'].'_'.$input['endDate'].'_'.$input['eventName'].'_event_poster.jpg';
+        $filename = $input['eventOrganizer'].'_'.$event['event_id'].'_'.$input['eventName'].'_event_poster.jpg';
         if($filename != $oldfilename){
             File::delete(public_path('/event_posters').'/'.$oldfilename);
         }
