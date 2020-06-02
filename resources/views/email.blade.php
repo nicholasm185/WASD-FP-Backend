@@ -304,9 +304,9 @@
                                                             <td> <div class="container">
                                                                     <center><p>Please complete your registration by clicking the link below</p></center>
                                                                     <hr>
-                                                                    <center><a href="http://18.138.60.51/proofing/{{$event_id}}/{{$id}}/{{$email}}">Click Here</a></center>
+                                                                    <center><a href="http://ticketmaya.me/proofing/{{$event_id}}/{{$id}}/{{$email}}">Click Here</a></center>
                                                                     <hr>
-                                                                    <p>If the link above does not work, you can use the following credentials to upload your proof of payment <a href="http://18.138.60.51/proofing/">here</a></p>
+                                                                    <p>If the link above does not work, you can use the following credentials to upload your proof of payment <a href="http://ticketmaya.me/proofing/">here</a></p>
                                                                     <center><p>Event ID: {{ $event_id }}</p></center>
                                                                     <center><p>Attendee ID: {{ $id }}</p></center>
                                                                     <center><p>Email: {{ $email }}</p></center>
