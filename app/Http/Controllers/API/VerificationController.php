@@ -85,6 +85,7 @@ class VerificationController extends Controller
         if ($request->user()->hasVerifiedEmail()) {
 
             return response(['message'=>'Already verified']);
+            // return redirect('http://ticketmaya.me/dashboard');
 
             // return redirect($this->redirectPath());
         }
@@ -93,7 +94,8 @@ class VerificationController extends Controller
             event(new Verified($request->user()));
         }
 
-        return response(['message'=>'Successfully verified']);
+        // return response(['message'=>'Successfully verified']);
+        return redirect('http://ticketmaya.me/dashboard');
 
     }
 
