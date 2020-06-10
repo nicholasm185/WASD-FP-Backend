@@ -12,4 +12,8 @@ class AdminControls extends BaseController
         $user = $request->user();
         return $this->sendResponse($user, 'you have admin privileges!');
     }
+
+    public function test(Request $request){
+        return $request->all();
+    }
 }
