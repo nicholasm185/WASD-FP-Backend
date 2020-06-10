@@ -48,6 +48,9 @@ Route::post('attendee/cancel', 'API\AttendeeController@cancel');
 Route::post('attendee/upload', 'API\AttendeeController@uploadProof');
 Route::get('attendee/dproof/{event_id}', 'API\AttendeeController@downloadProof');
 Route::post('attendee/instruction', 'API\Email@sendPaymentProofInstructions');
+Route::middleware('auth:api')->group(function() {
+    Route::post('attendee/downloadCSV', 'API\AttendeeController@exportCSV');
+});
 // **********************************************************************************************************
 
 // Email Routes *********************************************************************************************

@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\API;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Attendee;
+use App\Event;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Email;
+
+use App\Exports\AttendeeExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use File;
 use ZipArchive;
@@ -130,5 +134,38 @@ class AttendeeController extends BaseController
         return response()->download(public_path('/proof_archive/'.$fileName));
         // return $this->sendResponse('test', 'test');
 
+    }
+
+    public function exportCSV(Request $request){
+        $userID = $request->user()->id;
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            'event_id' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error, missing event_id', $validator->errors());
+        }
+
+        $checker = Event::where("event_id", $request->event_id)->where("eventOrganizer", $userID)->first();
+        if($checker == null){
+            return $this->sendError('You are not owner of this event', 'contact event owner for this data');
+        }
+
+        $headings = [
+            'id',
+            'event_id',
+            'name',
+            'email',
+            'paymentMethod',
+            'numTickets',
+            'paid',
+            'cancel',
+            'paymentProof',
+            'createdAt',
+            'updatedAt',
+        ];
+
+        return Excel::download(new AttendeeExport($request->event_id, $headings), $request->event_id.'-'.'attendees'.'.xlsx');
     }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Event;
 use App\Http\Controllers\API\BaseController as BaseController;
-//use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File; 
@@ -90,7 +89,7 @@ class EventController extends BaseController
         }
 
         $userID = $request->user()->id;
-        $event = Event::where('eventOrganizer', $userID)->where('id', $id)->get()->first();
+        $event = Event::where('eventOrganizer', $userID)->where('event_id', $id)->get()->first();
 
         if(is_null($event)){
             return $this->sendError('Event does not exist');

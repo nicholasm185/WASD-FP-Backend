@@ -8,6 +8,7 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Auth\Access\AuthorizationException;
 
+
 class VerificationController extends Controller
 {
     // Code by webdevmatics
@@ -98,6 +99,4 @@ class VerificationController extends Controller
         return redirect('https://ticketmaya.me/dashboard');
 
     }
-
-   
 }
