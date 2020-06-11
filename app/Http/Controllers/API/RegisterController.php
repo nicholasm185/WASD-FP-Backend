@@ -14,6 +14,9 @@ class RegisterController extends BaseController
     public function login(){
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
+            if($user['banned'] == 1){
+                return response()->json(['error'=>'Unauthorised'], 401);
+            }
             $success['token'] =  $user->createToken('MyApp')-> accessToken;
             $success['name'] = $user['name'];
             $success['id'] = $user['id'];

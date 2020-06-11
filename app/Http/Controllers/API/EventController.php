@@ -12,7 +12,7 @@ class EventController extends BaseController
 {
     public function index(Request $request){
         $userID = $request->user()->id;
-        $events = Event::where('eventOrganizer', $userID)->get();
+        $events = Event::where('eventOrganizer', $userID)->orderByRaw('created_at DESC')->get();
         return $this->sendResponse($events->toArray(), 'Events retrieved successfully!');
     }
 

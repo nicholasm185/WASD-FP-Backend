@@ -46,10 +46,11 @@ Route::get('events/show/{id}', 'API\EventController@show');
 Route::post('attendee/register', 'API\AttendeeController@attendEvent');
 Route::post('attendee/cancel', 'API\AttendeeController@cancel');
 Route::post('attendee/upload', 'API\AttendeeController@uploadProof');
-Route::get('attendee/dproof/{event_id}', 'API\AttendeeController@downloadProof');
 Route::post('attendee/instruction', 'API\Email@sendPaymentProofInstructions');
+
 Route::middleware('auth:api')->group(function() {
     Route::post('attendee/downloadCSV', 'API\AttendeeController@exportCSV');
+    Route::get('attendee/dproof/{event_id}', 'API\AttendeeController@downloadProof');
 });
 // **********************************************************************************************************
 
@@ -57,7 +58,10 @@ Route::middleware('auth:api')->group(function() {
 
 
 Route::middleware(['auth:api','isAdmin'])->group(function (){
-    Route::post('/admin/amIAdmin', 'API\AdminControls@imAdmin');
+    Route::get('/admin/amIAdmin', 'API\AdminControls@imAdmin');
+    Route::get('/admin/getUsers','API\AdminControls@getUsers');
+    Route::post('/admin/banUser', 'API\AdminControls@banUser');
+    Route::post('/admin/unbanUser', 'API\AdminControls@unbanUser');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

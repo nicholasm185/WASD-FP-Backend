@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use http\Client\Curl\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use App\User;
 
 class AdminControls extends BaseController
 {
@@ -15,5 +17,56 @@ class AdminControls extends BaseController
 
     public function test(Request $request){
         return $request->all();
+    }
+
+    public function getUsers(){
+        $users = DB::table('users')->paginate(1);
+        return $users;
+    }
+
+    public function banUser(Request $request){
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            'id' => 'required',
+            'email' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error, please input all correct data', $validator->errors());
+        }
+
+        $user = User::where('id', $input['id'])->where('email', $input['email'])->first();
+
+        if(is_null($user)){
+            return $this->sendError('User not found', 'User returns null from DB');
+        }
+
+        $user->banned = 1;
+        $user->save();
+
+        return $this->sendResponse($user, 'User has been banned');
+    }
+
+    public function unbanUser(Request $request){
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            'id' => 'required',
+            'email' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error, please input all correct data', $validator->errors());
+        }
+
+        $user = User::where('id', $input['id'])->where('email', $input['email'])->first();
+
+        if(is_null($user)){
+            return $this->sendError('User not found', 'User returns null from DB');
+        }
+
+        $user->banned = 0;
+        $user->save();
+
+        return $this->sendResponse($user, 'User has been unbanned');
     }
 }

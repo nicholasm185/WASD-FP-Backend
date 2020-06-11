@@ -114,7 +114,14 @@ class AttendeeController extends BaseController
         return $this->sendResponse($attendee->toArray(), 'Proof uploaded!');
     }
 
-    public function downloadProof($event_id){
+    public function downloadProof(Request $request, $event_id){
+        $userID = $request->user()->id;
+
+        $checker = Event::where("event_id", $event_id)->where("eventOrganizer", $userID)->first();
+        if($checker == null){
+            return $this->sendError('You are not owner of this event', 'contact event owner for this data');
+        }
+
         $zip = new ZipArchive;
    
         $fileName = $event_id.'.zip';
