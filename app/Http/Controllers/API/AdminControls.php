@@ -20,8 +20,25 @@ class AdminControls extends BaseController
     }
 
     public function getUsers(){
-        $users = DB::table('users')->paginate(1);
-        return $users;
+        // $users = DB::table('users')->paginate(1);
+        $users = User::all();
+        $id = $users->pluck('id');
+        $name = $users->pluck('name');
+        $email = $users->pluck('email');
+        $verified = $users->pluck('email_verified_at');
+        $banned = $users->pluck('banned');
+        $userArray = [];
+        for ($x = 0; $x < sizeof($users); $x++){
+            $userdata = [
+                'id' => $id[$x],
+                'name' => $name[$x],
+                'email' => $email[$x],
+                'verified_at' => $verified[$x],
+                'banned' => $banned[$x],
+            ];
+            array_push($userArray, $userdata);
+        }
+        return response($userArray, 200);
     }
 
     public function banUser(Request $request){

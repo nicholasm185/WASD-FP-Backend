@@ -103,8 +103,12 @@ class EventController extends BaseController
         $event->endDate =$input['endDate'];
         $event->eventDescription =$input['eventDescription'];
         $event->email1 =$input['email1'];
-        $event->email2 =$input['email2'];
-        $event->email3 =$input['email3'];
+        if($event->$email2 != null){
+            $event->email2 =$input['email2'];
+            if($event->$email3 != null){
+            $event->email3 =$input['email3'];
+            }
+        }
         $event->phone1 =$input['phone1'];
         $event->phone2 =$input['phone2'];
         $event->phone3 =$input['phone3'];
