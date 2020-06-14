@@ -103,24 +103,31 @@ class EventController extends BaseController
         $event->endDate =$input['endDate'];
         $event->eventDescription =$input['eventDescription'];
         $event->email1 =$input['email1'];
-        if($event->$email2 != null){
+        if($input['email2'] != null){
             $event->email2 =$input['email2'];
-            if($event->$email3 != null){
+            if($input['email3'] != null){
             $event->email3 =$input['email3'];
-            }
-        }
+            }else $event->email3 = null;
+        }else $event->email2 = $event->email3 = NULL;
+
         $event->phone1 =$input['phone1'];
-        $event->phone2 =$input['phone2'];
-        $event->phone3 =$input['phone3'];
+        if($input['phone2'] != null){
+            $event->phone2 =$input['phone2'];
+            if($input['phone3'] != null){
+            $event->phone3 =$input['phone3'];
+            }else $event->phone3 = null;
+        }else $event->phone2 = $event->phone3 = NULL;
+
         $event->venue = $input['venue'];
         $event->city = $input['city'];
-        $event->numTickets = $input['numTickets'];
 
         $filename = $input['eventOrganizer'].'_'.$event['event_id'].'_'.$input['eventName'].'_event_poster.jpg';
         if($filename != $oldfilename){
             File::delete(public_path('/event_posters').'/'.$oldfilename);
         }
         $path = $request->file('picture')->move(public_path('/event_posters'), $filename);
+        $photoURL = url('/event_posters/'.$filename);
+        $event->picture = $photoURL;
 
         $event->save();
         return $this->sendResponse($event->toArray(), 'Event has been updated');
