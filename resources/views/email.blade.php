@@ -310,7 +310,7 @@
                                                                     <center><p>Event ID: {{ $event_id }}</p></center>
                                                                     <center><p>Attendee ID: {{ $id }}</p></center>
                                                                     <center><p>Email: {{ $email }}</p></center>
-                                                                    <center><p>If you would like to cancel your registration, you can also use those credentials on the cancel registration page.<br> 
+                                                                    <center><p>If you would like to cancel your registration, you can also use those credentials on the <a href="https://ticketmaya.me/cancel">cancel registration page.</a><br> 
                                                                     Thank you for using our services!</p></center>
                                                                 </div>
                                                             </td>
