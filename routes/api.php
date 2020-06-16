@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 // Auth Routes *********************************************************************************************
 Route::post('register', 'API\RegisterController@register');
 Route::post('login','API\RegisterController@login');
+Route::middleware('auth:api')->group(function() {
+    Route::post('logout', 'API\RegisterController@logout');
+});
 
 Route::get('/email/resend', 'API\VerificationController@resend')->name('verification.resend');
 Route::get('/email/verify/{id}/{hash}', 'API\VerificationController@verify')->name('verification.verify');

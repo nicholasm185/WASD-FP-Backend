@@ -37,6 +37,10 @@ class RegisterController extends BaseController
             'c_password' => 'required',
         ]);
 
+        if($request->password != $request->c_password){
+            return $this->sendError('Validation Error!', 'Password confirmation failed');
+        }
+
         if ($validator->fails() || $request['password'] != $request['c_password']){
             return $this->sendError('Validation Error!', $validator->errors());
         }
@@ -52,5 +56,10 @@ class RegisterController extends BaseController
 
         return $this->sendResponse($success, 'User registered');
 
+    }
+
+    public function logout(Request $request){
+        $request->user()->token()->revoke();
+        return $this->sendResponse("logged out", "you have been logged out");
     }
 }
